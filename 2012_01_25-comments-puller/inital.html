@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Comments Feed Demo</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="text/javascript">
+
+    function insertAComment() {
+      insertNewComment({
+        'actor': {
+          'displayName':'Jenny Murphy',
+          'url':'https://plus.google.com/102817283354809142195',
+          'image':{
+            'url':'https://lh4.googleusercontent.com/-yth5HLY4Qi4/AAAAAAAAAAI/AAAAAAAAAAA/mSzTu44yCsM/photo.jpg?sz=50'
+          }
+         },
+        'object': {
+          'content' : "It's now " + new Date()
+        }
+      });
+    }
+
+    function insertNewComment(comment) {
+      // grab insertion point
+      var content = document.getElementById('favorite-activity-comments');
+
+      // Prepend an entry to our list
+      var profilePhoto = document.createElement('img');
+      profilePhoto.src = comment.actor.image.url;
+
+      var profilePhotoLink = document.createElement('a');
+      profilePhotoLink.href = comment.actor.url;
+      profilePhotoLink.appendChild(profilePhoto);
+
+      var defTerm = document.createElement('dt');
+      defTerm.appendChild(profilePhotoLink)
+
+      var nameLink = document.createElement('a');
+      nameLink.href = comment.actor.url;
+      nameLink.appendChild(document.createTextNode(comment.actor.displayName));
+
+      var defDef = document.createElement('dd');
+      defDef.appendChild(nameLink);
+      //strip tags to make it pretty
+      var contentText = comment.object.content.replace(/<[^>]+>/g,"").replace(/&[^;]+;/g,"");
+      defDef.appendChild(document.createTextNode(": " + contentText));
+
+      content.insertBefore(defDef, content.children[0]);
+      content.insertBefore(defTerm, content.children[0]);
+    }
+
+  </script>
+
+</head>
+<body>
+<header class="page-header">
+  <h1>Comment Feed Demo</h1>
+  <p>A play by play of the comments on your favorite activity.</p>
+</header>
+<div id="content"></div>
+<section class="content">
+  <p>Paste the ID of your favorite activity here to see a live updated stream of
+    comments.</p>
+  <label>Activity ID: <input id="favorite-activity-id" /></label>
+  <input id="submit-button" type="submit" onclick="insertAComment();">
+
+  <dl id="favorite-activity-comments">
+  </dl>
+  <div style="clear: both;"></div>
+</section>
+</body>
+</html>

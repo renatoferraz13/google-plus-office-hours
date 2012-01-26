@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Comments Feed Demo</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://apis.google.com/js/client.js"></script>
+
+  <!-- the script that does the magic -->
+  <script type="text/javascript">
+    function startCommentsGetter() {
+      document.getElementById("submit-button").disabled = true;
+      setInterval("getComments()", 1000);
+    }
+    var allComments = new Array();
+
+    function getComments() {
+      // Load your API key from the Developer Console
+      gapi.client.setApiKey('AIzaSyDQ7-_dmgREHKC8hj6lwmujLSYiWm11tv0');
+
+      // Load the API
+      gapi.client.load('plus', 'v1', function() {
+        var favoriteActivityElement = document.getElementById("favorite-activity-id");
+
+        // fetch the comments
+        var request = gapi.client.plus.comments.list({
+          'activityId': favoriteActivityElement.value,
+          'maxResults': '100'
+        });
+
+        request.execute(function(resp) {
+          // Output content of the response
+          if (resp.items) {
+            // reverse our result set so that it shows up newest on top
+            // print the response
+            for (var i = 0; i < resp.items.length; i++) {
+              var comment = resp.items[i];
+
+              // Is it a new record?
+              if(!allComments[comment.id]) {
+                // Mark it as seen
+                allComments[comment.id] = true;
+
+                insertNewComment(comment);
+              }
+            }
+          }
+        });
+      });
+
+      function insertNewComment(comment) {
+        // grab insertion point
+        var content = document.getElementById('favorite-activity-comments');
+
+        // Prepend an entry to our list
+        var profilePhoto = document.createElement('img');
+        profilePhoto.src = comment.actor.image.url;
+
+        var profilePhotoLink = document.createElement('a');
+        profilePhotoLink.href = comment.actor.url;
+        profilePhotoLink.appendChild(profilePhoto);
+
+        var defTerm = document.createElement('dt');
+        defTerm.appendChild(profilePhotoLink)
+
+        var nameLink = document.createElement('a');
+        nameLink.href = comment.actor.url;
+        nameLink.appendChild(document.createTextNode(comment.actor.displayName));
+
+        var defDef = document.createElement('dd');
+        defDef.appendChild(nameLink);
+        //strip tags to make it pretty
+        var contentText = comment.object.content.replace(/<[^>]+>/g,"").replace(/&[^;]+;/g,"");
+        defDef.appendChild(document.createTextNode(": " + contentText));
+
+        content.insertBefore(defDef, content.children[0]);
+        content.insertBefore(defTerm, content.children[0]);
+      }
+    }
+
+  </script>
+
+</head>
+<body>
+<header class="page-header">
+  <h1>Comment Feed Demo</h1>
+  <p>A play by play of the comments on your favorite activity.</p>
+</header>
+<div id="content"></div>
+<section class="content">
+  <p>Paste the ID of your favorite activity here to see a live updated stream of 
+    comments.</p>
+  <label>Activity ID: <input id="favorite-activity-id" /></label>
+  <input id="submit-button" type="submit" onclick="startCommentsGetter();">
+
+  <dl id="favorite-activity-comments">
+  </dl>
+  <div style="clear: both;"></div>
+</section>
+</body>
+</html>
