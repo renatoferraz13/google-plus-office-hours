@@ -8,9 +8,6 @@ as a jQuery plugin.
 You can learn more about our office hours here: 
   https://developers.google.com/+/office-hours
 
-You can see the video of this session here:
-  http://www.youtube.com/watch?v=YrGDl8hY1pk
-
 == What does it use? ==
 
  - The JavaScript Google API Client Library: 

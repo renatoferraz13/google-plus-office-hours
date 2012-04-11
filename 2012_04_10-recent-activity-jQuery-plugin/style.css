@@ -1,0 +1,23 @@
+ul {
+  width: 500px;
+  border-radius: 10px;
+  background-color:#DDD;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul a.when {
+  display: block;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #BBB;
+}
+li {
+  padding: 10px;
+}
+li:nth-child(even) {
+  background-color:#EEE;
+}
+section {
+  float: left;
+  margin-right: 20px;
+}
