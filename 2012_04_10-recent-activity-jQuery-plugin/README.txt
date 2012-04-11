@@ -18,3 +18,7 @@ You can learn more about our office hours here:
 
  - jquery.google+.recentActivity.js - the jQuery plugin that
  - example.html - An example page illustrating usage of this plugin
+
+ - example-intial.html - The starting point for the html file used in the demo
+ - jquery.emptyPlugin.js - The starting point for the jQuery plugin from the
+   demo
