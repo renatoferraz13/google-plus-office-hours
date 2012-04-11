@@ -15,7 +15,7 @@ You can learn more about our office hours here:
 
 
 You can see the video of this session here:
-  <TBD once the editing is complete>
+  http://www.youtube.com/watch?v=YrGDl8hY1pk
 
 == What does it use? ==
 
