@@ -9,6 +9,7 @@
       var $this = $(this);
 
       // Do stuff
+
     });
   };
 })(jQuery);

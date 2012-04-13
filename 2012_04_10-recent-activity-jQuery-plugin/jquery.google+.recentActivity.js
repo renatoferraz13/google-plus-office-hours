@@ -7,9 +7,9 @@
 
     return this.each(function() {
       var $this = $(this);
-
+      
+      gapi.client.setApiKey(settings.apiKey);
       gapi.client.load('plus', 'v1', function() {
-        gapi.client.setApiKey(settings.apiKey);
         var request = gapi.client.plus.activities.list({
           'userId': settings.userId,
           'maxResults': settings.maxResults,

@@ -1,0 +1,21 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    function appendResults(items) {
+      for (var i = items.length - 1; i >= 0; i--) {
+          var results = document.getElementById('results');
+          results.appendChild(document.createElement('P'));
+          results.appendChild(document.createTextNode(items[i].displayName));
+        };
+      }
+
+    jQuery.getJSON('https://www.googleapis.com/plus/v1/people' +
+    '?query=beri' +
+    '&key=YOUR_API_KEY' +
+    '&callback=?', function(response){appendResults(response.items);})</script>
+</head>
+<body>
+    <div id="results"></div>
+</body>
+</html>
