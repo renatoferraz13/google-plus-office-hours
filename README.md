@@ -5,6 +5,6 @@ Did you watch one of our office hours and would like to play with our code? Or p
 
 ## See Also
 
-* [https://developers.google.com/live/plus Google+ on Developers Live]
-* [https://developers.google.com/+ Google+ platform documentation]
-* [https://developers.google.com/+/support Google+ platform support]
+* [Google+ on Developers Live](https://developers.google.com/live/plus)
+* [Google+ platform documentation](https://developers.google.com/+)
+* [Google+ platform support](https://developers.google.com/+/support)
