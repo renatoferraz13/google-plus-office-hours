@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+<!-- Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *      
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License
+-->
+<ModulePrefs title="The classy robot hangout">
+  <Require feature="rpc"/>
+  <Require feature="views"/>
+</ModulePrefs>
+<Content type="html"><![CDATA[     
+    <script src="//hangoutsapi.talkgadget.google.com/hangouts/_/api/hangout.js?v=1.1"></script>
+
+    <script type="text/javascript" language="javascript"> 
+    var baseURI = "http://3wp.localtunnel.com:8080";
+    var state_ = null;
+    var metadata = null;
+
+    function navigate(direction){
+      var fullPath = baseURI + "/" + direction;
+      document.getElementById("response").src=fullPath;
+    }
+
+    function updateLocalBaseURI(){
+      console.log("Setting state data");
+      baseURI = document.getElementById("baseURI").value;
+      gapi.hangout.data.setValue("baseURI", baseURI);
+      console.log("State data set");
+    }
+    </script>
+
+    <div id="sharedEndpoint" style="display:none">
+      <center>
+      Endpoint base URI: <input type="text" id="baseURI" length="32" value="http://3wap.localtunnel.com"><br/>
+      <button onclick="updateLocalBaseURI();">Configure BASE URI</button>
+      </center>
+    </div>
+    <hr/>
+    <p>
+      <table align="center">
+        <tr>
+        <th colspan=3>Robot controls</th>
+        </tr>
+        <tr>
+          <td></td><td><center><button onclick='navigate("forward")'>Forward</button></center></td><td></td>
+        </tr>
+        <tr>
+          <td><center><button onclick='navigate("left")'>Left</button></center></td><td></td><td><button onclick='navigate("right")'>Right</button></center></td>
+        </tr>
+        <tr>
+          <td></td><td><center><button onclick='navigate("back")'>Back</button></center></td><td></td>
+        </tr>
+      </table>
+    </p>
+    <hr/>
+    <center>
+      <iframe border="0" id="response">
+      </iframe>
+    </center>
+    <script>
+
+    /** Handle messages for data sharing and more!
+     * @param {MessageReceievedEvent} event An event.
+     */
+    function updateBaseURI(event) {
+      try {
+        console.log("URL changed across the share");
+        var newURI = gapi.hangout.data.getValue("baseURI");
+        baseURI = newURI;
+
+        // hide the input section after being set initiallly
+        document.getElementById('sharedEndpoint').style.display='none';
+      } catch (e) {
+      }
+    }
+
+    function init() {
+      // When API is ready...                                                         
+      gapi.hangout.onApiReady.add(
+        function(eventObj) {
+          if (eventObj.isApiReady) {
+            var newURI = gapi.hangout.data.getValue("baseURI");
+
+            if (newURI != null){
+              baseURI = newURI;
+            }else{
+              // show the endpoint thing
+              document.getElementById('sharedEndpoint').style.display='block';
+            }
+
+            // set the onMessage callback to be used for data sharing
+            gapi.hangout.data.onStateChanged.add(updateBaseURI);
+          }
+        });
+    }
+    gadgets.util.registerOnLoadHandler(init);
+
+    // Keyboard shortcut handler
+    document.onkeypress=function(e){
+        var e=window.event || e;
+        if (e.altKey && e.ctrlKey && e.shiftKey){
+          // TODO: This is a workaround for a UI need, let you toggle the URL area after it's set.
+          // u character (URL)
+          if (e.charCode === 21){
+            console.log("reshowing URL area");
+            document.getElementById('sharedEndpoint').style.display='block';
+          }
+
+          // WASD controls when you hold CTRL+ALT
+          // w character
+          if (e.charCode === 23){
+            console.log("WASD - forward");
+            navigate("forward");
+          }
+          // a character
+          if (e.charCode === 1){
+            console.log("WASD - left");
+            navigate("left");
+          }
+          // s character
+          if (e.charCode === 19){
+            console.log("WASD - back");
+            navigate("right");
+          }
+          // d character
+          if (e.charCode === 4){
+            console.log("WASD - right");
+            navigate("down");
+          }
+        }
+    }
+    </script>
+]]>
+</Content>
+</Module>
