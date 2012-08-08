@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+<!-- Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *      
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License
+-->
+  <ModulePrefs title="Hangout Apps Visibility">
+    <Require feature="rpc"/>
+    <Require feature="views"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+    
+    <html>
+      <body>
+        <script src="//talkgadget.google.com/hangouts/_/api/hangout.js?v=1.1"></script>
+        <script type="text/javascript">
+          function init() {
+            // When API is ready...                                                         
+            gapi.hangout.onApiReady.add(function() {
+              gapi.hangout.onAppVisible.add(appNotification);
+              gapi.hangout.layout.onChatPaneVisible.add(chatPaneNotification); 
+            });
+          }
+
+          function appNotification(evt) {
+            var message = evt.isAppVisible ?
+                "The app is visible" :
+                "The app is not visible";
+            displayMessage(message);
+          }
+
+          function chatPaneNotification(evt) {
+            var message = evt.isChatPaneVisible ?
+                "The chat pane is visible, any running extensions have been hidden" :
+                "The chat pane is not visible";
+            displayMessage(message);
+          }
+
+          function displayMessage(message) {
+            console.log(message);
+            gapi.hangout.layout.displayNotice(message);
+          }
+
+          // Wait for gadget to load.                                                       
+          gadgets.util.registerOnLoadHandler(init);
+        </script>
+      </body>
+    </html>
+    
+    ]]>
+  </Content>
+</Module>
