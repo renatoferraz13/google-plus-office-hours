@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2012 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<resources>
+    <string name="app_name">Curiosity</string>
+    <string name="app_label">I\'m on a red planet!</string>
+    <string name="btn_share_image">Share image from the MSL</string>
+    <string name="btn_share_plus">Share the Nasa Google+ Page</string>
+    <string name="btn_take_image">Take an image and share it</string>
+    <string name="share_plus_page">https://plus.google.com/102371865054310418159/about</string>
+    <string name="share_plus_string">Check out and follow my Google+ page\n\n</string>
+    <string-array name="mars_img_array">
+        <item>http://mars.jpl.nasa.gov/msl/images/pia16052-figure_3color-br2.jpg</item>
+        <item>http://mars.jpl.nasa.gov/msl/images/pia16053-figure_4color-br2.jpg</item>
+        <item>http://mars.jpl.nasa.gov/msl/images/pia16054-figure_5color-br2.jpg</item>
+    </string-array>
+    <string-array name="share_comment_array">
+        <item>Whoa, I\'m on Mars! See?\n\n</item>
+        <item>It sure is hot up here...\n\n</item>
+        <item>I like drawing arrows.\n\n</item>
+    </string-array>
+</resources>
+
