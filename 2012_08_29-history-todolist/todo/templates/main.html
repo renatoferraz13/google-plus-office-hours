@@ -1,0 +1,54 @@
+<!doctype HTML>
+<html>
+<head itemscope itemtype="http://schema.org/WebPage">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>PlussyTodo</title>
+	
+	<meta itemprop="name" content="PlussyTodo: +History Todo List">
+	<meta itemprop="image" content="/images/plussytodos.jpg">
+	<meta itemprop="description" content="PlussyTodos allows you to manage 
+		your todo list, and creates moments in your Google+ history whenever 
+		you add or check off items. Don't really use this, it's just an 
+		example!">
+		
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/css/style.css">
+	<script data-main="js/main/main.js" src="js/require.js"></script>
+	<script type="text/javascript">
+		requirejs.config({
+		  paths: {
+		    'jquery' : 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min',
+			'plusone' : 'https://apis.google.com/js/plusone',
+		  }
+		});
+	</script>
+	<style>
+	{{if .User.Id}}
+		h1 { background-image: url({{.User.Imurl}}); }
+	{{end}}
+	</style>
+</head>
+<body>
+	<header>
+		<h1 {{if .User.Id}}class="signedin"{{end}}>{{if .User.Name}}{{.User.Name}}'s Todos{{else}}Sign In For Your Todos{{end}}</h1>
+	</header>
+	<div id="container" role="main">
+		{{if .URL}}
+		<div id="signin">
+			<a href="{{.URL}}">Sign In</a>
+		</div>
+		{{else}}
+		<div id="todolist">
+			<div id="listcontainer">
+				{{template "list.html" .}}
+			</div>
+		</div>
+		{{end}}
+	</div>
+	<footer id="credits">
+ 		<p>“Worker” symbol by Bart Laugs, "Unicorn" by Andrew McKinley, "Home" and "Phone" by The Noun Project, from <a href="http://thenounproject.com/">The Noun Project</a> collection.</p>
+		<div id="share"><div class="g-plus" data-action="share" data-annotation="bubble" data-height="24"></div></div>
+	</footer>
+</body>
+</html>
